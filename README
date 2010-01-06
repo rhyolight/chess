@@ -1,0 +1,3 @@
+This project is meant to be a backend chess server that provides possible moves for all pieces on the board, including capture moves.
+
+I was practicing chess, and I wanted some program to tell me what all my possible moves where, as well as all the opponent's possible moves. So I made this.
