@@ -86,7 +86,19 @@ class BoardTests extends GroovyTestCase {
         assertTrue descriptors.contains('F6')
         assertTrue descriptors.contains('G7')
         assertTrue descriptors.contains('H8')
-        
+    }
+    
+    void testGetCellByCoordinatesAndSourceCell() {
+        def cell = board.getCell('D4')
+        assertSame board.getCell('E4'), board.getCell(cell, 1, 0)
+        assertSame board.getCell('E5'), board.getCell(cell, 1, 1)
+        assertSame board.getCell('D5'), board.getCell(cell, 0, 1)
+        assertSame board.getCell('C5'), board.getCell(cell, -1, 1)
+        assertSame board.getCell('C4'), board.getCell(cell, -1, 0)
+        assertSame board.getCell('C3'), board.getCell(cell, -1, -1)
+        assertSame board.getCell('D3'), board.getCell(cell, 0, -1)
+        assertSame board.getCell('E3'), board.getCell(cell, 1, -1)
+        assertNull board.getCell(cell, -4, 0)
     }
     
 }

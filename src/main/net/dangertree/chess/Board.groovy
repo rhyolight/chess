@@ -38,7 +38,13 @@ class Board {
     }
     
     def getCell(x, y) {
+        println "getCell($x, $y)"
+        if (x > 7 || x < 0 || y > 7 || y < 0) return null
         this.@cells[x][y]
+    }
+    
+    def getCell(cell, x, y) {
+        getCell(cell.x + x, cell.y + y)
     }
     
     def getRow(cell) {
@@ -52,12 +58,10 @@ class Board {
     }
     
     def getDiagonalX(cell) {
-        println "finding diagonals of $cell"
         def xCells = []
         8.times { x ->
             8.times { y ->
-                println "looking at $x, $y"
-                if (cell.x - x == cell.y - y) xCells << getCell(x, y)
+                if (Math.abs(cell.x - x) == Math.abs(cell.y - y)) xCells << getCell(x, y)
             }
         }
         xCells

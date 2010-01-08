@@ -20,6 +20,6 @@ class Cell {
     }
     
     String toString() {
-        "Cell ${descriptor} (${piece})"
+        "Cell ${descriptor} [${x},${y}] (${piece})"
     }
 }
