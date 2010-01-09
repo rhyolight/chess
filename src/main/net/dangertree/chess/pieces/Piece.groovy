@@ -1,11 +1,24 @@
 package net.dangertree.chess.pieces
 
-abstract class Piece {
+import net.dangertree.chess.pieces.move.ChessMoveStrategy
+
+class Piece {
     def board
     def cell
     def side = 'white'
+    def moveStrategies
     
-    abstract getPossibleMoves()
+    protected Piece() {
+        moveStrategies = []
+    }
+    
+    def getPossibleMoves() {
+        def moves = []
+        moveStrategies.each {
+            moves += it.getPossibleMoves(cell)
+        }
+        moves
+    }
     
     def isWhite() { side.equals('white') }
     

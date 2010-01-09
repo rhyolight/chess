@@ -18,6 +18,20 @@ class BoardTests extends GroovyTestCase {
             assertTrue 'Board cell is not really a Cell', cell instanceof Cell
         }
     }
+
+    /*
+    void testFullBoardCreation() {
+        fail('not implemented')
+        board = new Board(true)
+        def pieceOrder = Board.PIECE_ORDER
+        ('A'..'G').eachWithIndex { letter, i ->
+            assertEquals pieceOrder[i], board["${letter}1"].piece.class.name
+            assertEquals 'white', board["${letter}1"].piece.side
+            assertEquals pieceOrder[i], board["${letter}8"].piece.class.name
+            assertEquals 'black', board["${letter}8"].piece.side
+        }
+    }
+    */
     
     void testAddPieceToBoard() {
         board.addPiece('A2', new Pawn())

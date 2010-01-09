@@ -1,7 +1,14 @@
 package net.dangertree.chess
 
+import net.dangertree.chess.pieces.*
+
 class Board {
     
+    static final PIECE_ORDER = 
+        [   Rook.class, Knight.class, Bishop.class, Queen.class, 
+            King.class, Bishop.class, Knight.class, Rook.class
+        ]
+        
     def cells
     
     Board() {
@@ -12,6 +19,21 @@ class Board {
                 col << new Cell(x:x, y:y)
             }
             this.@cells << col
+        }
+    }
+    
+    Board(boolean loadBoard) {
+        this()
+        PEICE_ORDER.eachWithIndex { piece, i ->
+            def whitePiece = piece.newInstance()
+            getCell(i, 0).piece = whitePiece
+            def blackPiece = piece.newInstance()
+            blackPiece.side = 'black'
+            getCell(i, 8).piece = blackPiece
+        }
+        8.times { i ->
+            getCell(i, 1).piece = new Pawn()
+            getCell(i, 7).piece = new Pawn(side:'black')
         }
     }
     
@@ -35,6 +57,10 @@ class Board {
     def getCell(descriptor) {
         def (x, y) = translateDescriptor(descriptor)
         this.@cells[x][y]
+    }
+    
+    def propertyMissing(String name) {
+        getCell(name)
     }
     
     def getCell(x, y) {
