@@ -2,9 +2,9 @@ package net.dangertree.chess.pieces.move
 
 class RookMoveStrategy extends ChessMoveStrategy {
     
-    def getPossibleMoves(cell) {
-        def horizontal = stripUnreachableCells(board.getRow(cell) - cell)
-        def vertical = stripUnreachableCells(board.getCol(cell) - cell)
+    def getPossibleMoves(origin) {
+        def horizontal = stripUnreachableCells(board.getRow(origin) - this.cell)
+        def vertical = stripUnreachableCells(board.getCol(origin) - this.cell)
         horizontal + vertical
     }
     

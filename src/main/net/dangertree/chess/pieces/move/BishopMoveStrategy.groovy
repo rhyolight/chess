@@ -2,8 +2,8 @@ package net.dangertree.chess.pieces.move
 
 class BishopMoveStrategy extends ChessMoveStrategy {
     
-    def getPossibleMoves(cell) {
-        stripUnreachableCells(board.getDiagonalX(cell) - cell)
+    def getPossibleMoves(origin) {
+        stripUnreachableCells(board.getDiagonalX(origin) - this.cell)
     }
     
     def stripUnreachableCells(cells) {

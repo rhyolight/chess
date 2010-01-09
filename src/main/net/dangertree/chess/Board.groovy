@@ -41,6 +41,16 @@ class Board {
         cells.flatten()
     }
     
+    def getPieces() {
+        def pieces = []
+        this.@cells.each { row ->
+            row.each {
+                if (it.piece) pieces << it.piece
+            }
+        }
+        pieces
+    }
+    
     def addPiece(descriptor, piece) {
         piece.board = this
         getCell(descriptor).piece = piece
@@ -64,7 +74,6 @@ class Board {
     }
     
     def getCell(x, y) {
-        println "getCell($x, $y)"
         if (x > 7 || x < 0 || y > 7 || y < 0) return null
         this.@cells[x][y]
     }
@@ -74,13 +83,17 @@ class Board {
     }
     
     def getRow(cell) {
-        this.@cells.collect { col ->
+        def row = this.@cells.collect { col ->
             col.find { it.y == cell.y }
         }
+        println "getRow returned $row"
+        row
     }
     
     def getCol(cell) {
-        this.@cells[cell.x]
+        def col = this.@cells[cell.x]
+        println "getCol returned $col"
+        col
     }
     
     def getDiagonalX(cell) {

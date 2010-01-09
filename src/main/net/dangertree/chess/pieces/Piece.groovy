@@ -13,7 +13,7 @@ class Piece {
     }
     
     def getPossibleMoves() {
-        def moves = []
+        Set moves = []
         moveStrategies.each {
             moves += it.getPossibleMoves(cell)
         }

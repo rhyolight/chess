@@ -2,10 +2,10 @@ package net.dangertree.chess.pieces.move
 
 class KingMoveStrategy extends ChessMoveStrategy {
     
-    def getPossibleMoves(cell) {
+    def getPossibleMoves(origin) {
         def moves = []
-        (cell.x-1 .. cell.x+1).each { hor ->
-            (cell.y-1 .. cell.y+1).each { ver ->
+        (origin.x-1 .. origin.x+1).each { hor ->
+            (origin.y-1 .. origin.y+1).each { ver ->
                 def moveCell = board.getCell(hor, ver)
                 if (!moveCell) return
                 if (moveCell.piece == null || moveCell.piece.side != this.side) {

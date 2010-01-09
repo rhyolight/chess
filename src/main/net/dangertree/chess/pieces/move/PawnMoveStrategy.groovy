@@ -4,14 +4,14 @@ import net.dangertree.chess.Cell
 
 class PawnMoveStrategy extends ChessMoveStrategy {
     
-    def getPossibleMoves(cell) {
+    def getPossibleMoves(origin) {
         def action = isWhite() ? 'plus' : 'minus'
         def moves = []
         if (isNotAtEndOfBoard()) {
-            moves << new Cell(x: cell.x, y:cell.y."$action"(1))
+            moves << new Cell(x: origin.x, y:origin.y."$action"(1))
             moves += attackMoves
         }
-        if (isFirstMove()) moves << new Cell(x: cell.x, y:cell.y."$action"(2))
+        if (isFirstMove()) moves << new Cell(x: origin.x, y:origin.y."$action"(2))
         moves
     }
     
