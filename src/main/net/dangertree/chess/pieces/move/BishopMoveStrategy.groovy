@@ -35,7 +35,7 @@ class BishopMoveStrategy extends ChessMoveStrategy {
             // look left
             else {
                 // look up
-                if (occupied.y < cell.y) {
+                if (occupied.y > cell.y) {
                     def outOfReach = reachableCells.findAll { 
                         it.x < occupied.x && it.y > occupied.y
                     }
@@ -44,7 +44,7 @@ class BishopMoveStrategy extends ChessMoveStrategy {
                 // down
                 else {
                     def outOfReach = reachableCells.findAll { 
-                        it.x > occupied.x && it.y > occupied.y
+                        it.x < occupied.x && it.y < occupied.y
                     }
                     reachableCells -= outOfReach
                 }

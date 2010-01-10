@@ -19,19 +19,26 @@ class BoardTests extends GroovyTestCase {
         }
     }
 
-    /*
     void testFullBoardCreation() {
-        fail('not implemented')
         board = new Board(true)
         def pieceOrder = Board.PIECE_ORDER
         ('A'..'G').eachWithIndex { letter, i ->
-            assertEquals pieceOrder[i], board["${letter}1"].piece.class.name
-            assertEquals 'white', board["${letter}1"].piece.side
-            assertEquals pieceOrder[i], board["${letter}8"].piece.class.name
-            assertEquals 'black', board["${letter}8"].piece.side
+            def whitePawn = board["${letter}2"].piece
+            def whitePiece = board["${letter}1"].piece
+            assertEquals Pawn.class, whitePawn.class
+            assertSame board, whitePawn.board
+            assertEquals pieceOrder[i], whitePiece.class
+            assertEquals 'white', whitePiece.side
+            
+            def blackPawn = board["${letter}7"].piece
+            def blackPiece = board["${letter}8"].piece
+            assertEquals Pawn.class, blackPawn.class
+            assertSame board, blackPiece.board
+            assertEquals pieceOrder[i], blackPiece.class
+            assertEquals 'black', blackPiece.side
         }
+        println board.cells
     }
-    */
     
     void testAddPieceToBoard() {
         board.addPiece('A2', new Pawn())
@@ -115,4 +122,19 @@ class BoardTests extends GroovyTestCase {
         assertNull board.getCell(cell, -4, 0)
     }
     
+    void testMovePiece() {
+        board = new Board(true)
+        board.move('A2', 'A4')
+        assertNull board.getPiece('A2')
+        assertNotNull board.getPiece('A4')
+        assertTrue board.getPiece('A4') instanceof Pawn
+        println board.cells
+    }
+    
+    void testMovePiece_throwsException_onImpossibleMove() {
+        board = new Board(true)
+        def msg = shouldFail(Exception) {
+            board.move('A2', 'B5')
+        }
+    }
 }

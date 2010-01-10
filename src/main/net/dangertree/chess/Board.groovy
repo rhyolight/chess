@@ -24,17 +24,31 @@ class Board {
     
     Board(boolean loadBoard) {
         this()
-        PEICE_ORDER.eachWithIndex { piece, i ->
+        PIECE_ORDER.eachWithIndex { piece, i ->
             def whitePiece = piece.newInstance()
+            whitePiece.board = this
             getCell(i, 0).piece = whitePiece
             def blackPiece = piece.newInstance()
+            blackPiece.board = this
             blackPiece.side = 'black'
-            getCell(i, 8).piece = blackPiece
+            getCell(i, 7).piece = blackPiece
         }
         8.times { i ->
-            getCell(i, 1).piece = new Pawn()
-            getCell(i, 7).piece = new Pawn(side:'black')
+            getCell(i, 1).piece = new Pawn(board: this)
+            getCell(i, 6).piece = new Pawn(side:'black', board: this)
         }
+    }
+    
+    def move(from, to) {
+        def mover = getPiece(from)
+        def toCell = getCell(to)
+        def moves = mover.possibleMoves
+        if (!moves*.descriptor.contains(to)) {
+            throw new Exception("Piece cannot move there.")
+        }
+        mover.cell = toCell
+        toCell.piece = mover
+        getCell(from).piece = null
     }
     
     def getCells() {
@@ -83,17 +97,13 @@ class Board {
     }
     
     def getRow(cell) {
-        def row = this.@cells.collect { col ->
+        this.@cells.collect { col ->
             col.find { it.y == cell.y }
         }
-        println "getRow returned $row"
-        row
     }
     
     def getCol(cell) {
-        def col = this.@cells[cell.x]
-        println "getCol returned $col"
-        col
+        this.@cells[cell.x]
     }
     
     def getDiagonalX(cell) {

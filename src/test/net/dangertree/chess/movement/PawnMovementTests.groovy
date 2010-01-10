@@ -98,4 +98,8 @@ class PawnMovementTests extends MovementTestCase {
         assertTrue moves*.descriptor.contains('D3')        
     }
     
+    void testPawnCannotKillHeadOn() {
+        fail('not implemented')
+    }
+    
 }

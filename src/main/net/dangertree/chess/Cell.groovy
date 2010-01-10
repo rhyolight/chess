@@ -6,7 +6,7 @@ class Cell {
     
     void setPiece(piece) {
         this.piece = piece
-        piece.cell = this
+        if (piece) piece.cell = this
     }
     
     def getDescriptor() {

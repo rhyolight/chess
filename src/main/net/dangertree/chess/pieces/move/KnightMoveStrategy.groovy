@@ -12,7 +12,9 @@ class KnightMoveStrategy extends ChessMoveStrategy {
         moves << board.getCell(origin, -2, -1)
         moves << board.getCell(origin, 1, -2)
         moves << board.getCell(origin, -1, -2)
-        moves.findAll { it }
+        moves.findAll {
+            it && (!it.piece || it.piece.side != side)
+        }
     }
     
 }

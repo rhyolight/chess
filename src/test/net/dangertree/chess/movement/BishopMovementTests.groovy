@@ -123,4 +123,13 @@ class BishopMovementTests extends MovementTestCase {
         assertTrue descriptors.contains('E1')
     }
     
+    void testBishopsFirstMoves() {
+        def bish = new Bishop()
+        board.addPiece('F1', bish)
+        ('A'..'H').each { board.addPiece("${it}2", new Pawn()) }
+        def moves = bish.possibleMoves
+        assertNotNull moves
+        assertEquals 0, moves.size()
+    }
+    
 }

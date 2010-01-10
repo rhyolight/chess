@@ -73,7 +73,7 @@ class KnightMovementTests extends MovementTestCase {
         def moves = knight.possibleMoves
         def descriptors = moves*.descriptor
         assertNotNull moves
-        assertEquals 6, moves.size()
+        assertEquals 5, moves.size()
         assertTrue descriptors.contains('A2')
         assertTrue descriptors.contains('A6')
         assertTrue descriptors.contains('C2')
@@ -95,6 +95,21 @@ class KnightMovementTests extends MovementTestCase {
         assertTrue descriptors.contains('C6')
         assertTrue descriptors.contains('D3')
         assertTrue descriptors.contains('D5')
+    }
+    
+    void testKnightsFirstMoves() {
+        def knight = new Knight()
+        board.addPiece('G1', knight)
+        board.addPiece('E2', new Pawn())
+        board.addPiece('F2', new Pawn())
+        board.addPiece('G2', new Pawn())
+        board.addPiece('H2', new Pawn())
+        def moves = knight.possibleMoves
+        def descriptors = moves*.descriptor
+        assertNotNull moves
+        assertEquals 2, moves.size()
+        assertTrue descriptors.contains('F3')
+        assertTrue descriptors.contains('H3')
     }
     
 }
